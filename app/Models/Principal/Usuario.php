@@ -11,8 +11,8 @@ class Usuario extends Model
 {
     protected $table = 'principal_usuarios';
     protected $primaryKey = 'usuario_id';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    public $incrementing = true;  // Ahora es autoincrement de users.id
+    protected $keyType = 'int';   // Cambió de string UUID a int
 
     /* ===================== TIMESTAMPS ===================== */
     const CREATED_AT = 'creado_en';
@@ -21,7 +21,7 @@ class Usuario extends Model
 
     /* ===================== MASS ASSIGNMENT ===================== */
     protected $fillable = [
-        'usuario_id',
+        'usuario_id',    // Linked to users.id (mismo valor)
         'persona_id',
         'username',
         'password_hash',
@@ -48,14 +48,15 @@ class Usuario extends Model
     /* ===================== BOOT ===================== */
     protected static function booted()
     {
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) Str::uuid();
-            }
-        });
+        // Ya NO generamos UUID aquí porque usuario_id viene de users.id
     }
 
     /* ===================== RELACIONES ===================== */
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'usuario_id', 'id');
+    }
 
     public function persona(): BelongsTo
     {

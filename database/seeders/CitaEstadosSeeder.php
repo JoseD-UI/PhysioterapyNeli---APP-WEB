@@ -3,21 +3,25 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 
 class CitaEstadosSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
         $estados = [
-            ['estado_id'=>(string) Str::uuid(),'codigo'=>'reservado','nombre'=>'Reservado','activo'=>true,'creado_en'=>now()],
-            ['estado_id'=>(string) Str::uuid(),'codigo'=>'confirmado','nombre'=>'Confirmado','activo'=>true,'creado_en'=>now()],
-            ['estado_id'=>(string) Str::uuid(),'codigo'=>'atendido','nombre'=>'Atendido','activo'=>true,'creado_en'=>now()],
-            ['estado_id'=>(string) Str::uuid(),'codigo'=>'cancelado','nombre'=>'Cancelado','activo'=>true,'creado_en'=>now()],
-            ['estado_id'=>(string) Str::uuid(),'codigo'=>'no_asistio','nombre'=>'No asistió','activo'=>true,'creado_en'=>now()],
+            ['estado_id' => 1, 'codigo' => 'RESERVADA', 'nombre' => 'Reservada', 'descripcion' => 'Cita reservada'],
+            ['estado_id' => 2, 'codigo' => 'CONFIRMADA', 'nombre' => 'Confirmada', 'descripcion' => 'Cita confirmada'],
+            ['estado_id' => 3, 'codigo' => 'FINALIZADA', 'nombre' => 'Finalizada', 'descripcion' => 'Cita finalizada'],
+            ['estado_id' => 4, 'codigo' => 'CANCELADA', 'nombre' => 'Cancelada', 'descripcion' => 'Cita cancelada'],
+            ['estado_id' => 5, 'codigo' => 'NO_ASISTIO', 'nombre' => 'No Asistió', 'descripcion' => 'Paciente no asistió'],
         ];
 
-        DB::table('agenda_cita_estados')->insert($estados);
+        foreach ($estados as $estado) {
+            DB::table('agenda_cita_estados')->updateOrInsert(
+                ['estado_id' => $estado['estado_id']],
+                $estado
+            );
+        }
     }
 }

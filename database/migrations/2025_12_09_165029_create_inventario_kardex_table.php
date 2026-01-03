@@ -17,7 +17,7 @@ class CreateInventarioKardexTable extends Migration
             $table->decimal('saldo',12,3);
             $table->decimal('costo_unitario',12,2)->nullable();
             $table->timestamp('fecha')->useCurrent();
-            $table->char('usuario_id',36)->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->text('nota')->nullable();
 
             $table->index(['item_id','fecha'],'idx_kardex_item_fecha');

@@ -11,9 +11,10 @@ class Categoria extends Model
     protected $primaryKey = 'categoria_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
 
-    const CREATED_AT = 'creado_en';
-    public $timestamps = true;
+
+
 
     protected $fillable = [
         'categoria_id',

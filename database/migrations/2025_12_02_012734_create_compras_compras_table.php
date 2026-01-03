@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('fecha_compra')->useCurrent();
             $table->decimal('total',12,2)->unsigned();
             $table->string('estado',30)->default('finalizado');
-            $table->char('usuario_id',36)->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();
 
             $table->foreign('proveedor_id')->references('proveedor_id')->on('compras_proveedores')->nullOnDelete();
             $table->foreign('usuario_id')->references('usuario_id')->on('principal_usuarios')->nullOnDelete();

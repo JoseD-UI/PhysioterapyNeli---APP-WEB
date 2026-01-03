@@ -84,7 +84,7 @@ class AgendaRepository
     // Devuelve array de estado_id que bloquean (reservado|confirmado) según config
     protected function getBlockEstadoIds(): array
     {
-        $codes = config('appointments.block_statuses', ['reservado','confirmado']);
+        $codes = config('appointments.block_statuses', ['RESERVADA','CONFIRMADA']);
         return CitaEstado::whereIn('codigo',$codes)->pluck('estado_id')->map(fn($v)=>(string)$v)->toArray();
     }
 
@@ -153,7 +153,8 @@ class AgendaRepository
      */
     public function getEstadoInicial()
     {
-        $code = config('appointments.default_initial_state','reservado');
+        $code = config('appointments.default_initial_state','RESERVADA');
+        // dump("SEARCHING STATE: " . $code);
         return CitaEstado::where('codigo',$code)->first();
     }
 }

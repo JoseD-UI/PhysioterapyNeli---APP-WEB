@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api\Facturacion;
 
 use App\Http\Controllers\Controller;
-use App\Services\Facturacion\FacturacionService;
+use App\Services\Facturacion\ComprobanteService;
+use App\Services\Facturacion\NotaCreditoService;
+use App\Services\Facturacion\PagoService;
 use App\Http\Requests\Facturacion\ComprobanteStoreRequest;
 use App\Http\Requests\Facturacion\ComprobanteAnularRequest;
 use App\Http\Requests\Facturacion\PagoStoreRequest;
@@ -16,7 +18,9 @@ use Exception;
 class FacturacionController extends Controller
 {
     public function __construct(
-        protected FacturacionService $service
+        protected ComprobanteService $comprobanteService,
+        protected NotaCreditoService $notaCreditoService,
+        protected PagoService $pagoService
     ) {}
 
     /* =====================================================
@@ -27,9 +31,8 @@ class FacturacionController extends Controller
         ComprobanteStoreRequest $request
     ): JsonResponse {
         try {
-            $comprobante = $this->service
-                ->emitirComprobante($request->validated())
-                ->load(['detalles', 'pagos']);
+            $comprobante = $this->comprobanteService
+                ->emitir($request->validated());
 
             return response()->json(
                 new ComprobanteResource($comprobante),
@@ -49,7 +52,7 @@ class FacturacionController extends Controller
         ComprobanteAnularRequest $request
     ): JsonResponse {
         try {
-            $this->service->anularComprobante(
+            $this->comprobanteService->anular(
                 $comprobanteId,
                 $request->motivo
             );
@@ -74,8 +77,8 @@ class FacturacionController extends Controller
         PagoStoreRequest $request
     ): JsonResponse {
         try {
-            $pago = $this->service
-                ->registrarPago($request->validated());
+            $pago = $this->pagoService
+                ->registrar($request->validated());
 
             return response()->json(
                 new PagoResource($pago),

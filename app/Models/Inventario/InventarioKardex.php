@@ -12,6 +12,8 @@ class InventarioKardex extends Model
     protected $primaryKey = 'kardex_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false; // Table does not have updated_at
+
 
     protected $fillable = [
         'item_id',

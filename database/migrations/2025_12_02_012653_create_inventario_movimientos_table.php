@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('cantidad',12,3);
             $table->timestamp('fecha_movimiento')->useCurrent();
             $table->string('referencia',200)->nullable();
-            $table->char('usuario_id',36)->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();
 
             $table->foreign('item_id')->references('item_id')->on('inventario_items')->cascadeOnDelete();
             $table->foreign('usuario_id')->references('usuario_id')->on('principal_usuarios')->nullOnDelete();

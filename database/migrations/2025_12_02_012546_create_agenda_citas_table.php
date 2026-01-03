@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('fecha_inicio')->nullable(false);
 $table->dateTime('fecha_fin')->nullable(false);
             $table->string('estado',30)->default('reservado');
-            $table->char('creado_por',36)->nullable();
+            $table->unsignedBigInteger('creado_por')->nullable();
             $table->timestamp('creado_en')->useCurrent();
 
             $table->foreign('paciente_id')->references('persona_id')->on('principal_personas')->cascadeOnDelete();

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 use App\Models\Principal\Usuario as UsuarioPrincipal;
 
 
@@ -13,7 +14,7 @@ use App\Models\Principal\Usuario as UsuarioPrincipal;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -50,13 +51,13 @@ class User extends Authenticatable
     }
 
     public function usuarioPrincipal()
-{
-    return $this->hasOne(
-        UsuarioPrincipal::class,
-        'usuario_id',
-        'id'
-    );
-}
+    {
+        return $this->hasOne(
+            UsuarioPrincipal::class,
+            'usuario_id',  // Foreign key en principal_usuarios
+            'id'           // Local key en users (mismo valor que usuario_id)
+        );
+    }
 
 public function tienePermiso(string $codigo): bool
 {

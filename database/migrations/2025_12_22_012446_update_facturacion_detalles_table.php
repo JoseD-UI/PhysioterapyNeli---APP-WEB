@@ -19,9 +19,14 @@ return new class extends Migration {
             $table->string('descripcion', 255)->nullable();
             $table->decimal('cantidad', 12, 2)->default(1);
             $table->decimal('precio_unitario', 12, 2)->default(0);
+            $table->decimal('descuento_porcentaje', 5, 2)->default(0);
+            $table->decimal('igv_porcentaje', 5, 2)->default(18);
             $table->decimal('subtotal', 12, 2)->default(0);
             $table->decimal('igv', 12, 2)->default(0);
             $table->decimal('total', 12, 2)->default(0);
+
+            // Add timestamps for Eloquent compatibility
+            $table->timestamps();
 
             // Relaciones
             $table->foreign('comprobante_id')->references('id')->on('facturacion_comprobantes')->onDelete('cascade');

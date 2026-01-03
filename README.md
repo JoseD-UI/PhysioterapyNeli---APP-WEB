@@ -1,59 +1,416 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## 🎉 BACKEND LISTO PARA PRODUCCIÓN
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este backend está completamente preparado para despliegue en producción con:
 
-## About Laravel
+-   ✅ Laravel Sanctum para autenticación
+-   ✅ Servicios refactorizados por responsabilidad
+-   ✅ Manejo centralizado de errores
+-   ✅ Sistema de permisos granular
+-   ✅ Documentación modularizada completa
+-   ✅ Optimización para MySQL/PostgreSQL
+-   ✅ Índices de base de datos
+-   ✅ Auditoría automática
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📚 Documentación Completa
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 🚀 **Ver [Documentación Modularizada](/docs/README.md)**
 
-## Learning Laravel
+La documentación incluye:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+-   📖 **[Arquitectura](docs/architecture/overview.md)**: Patrones, capas, diseño
+-   📦 **[Módulos](docs/modules/)**: Guías detalladas por módulo
+-   🔧 **[Desarrollo](docs/development/setup.md)**: Setup, testing, estándares
+-   🚀 **[Deployment](docs/deployment/production-checklist.md)**: Producción checklist
+-   📡 **[API Reference](docs/api/)**: Endpoints documentados
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🔑 Autenticación
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   Autenticación API con Laravel Sanctum (tokens)
+-   Sistema de permisos granular basado en roles
+-   Middleware de autorización por endpoints
+-   Auditoría automática de operaciones
 
-### Premium Partners
+### 📦 Módulos del Sistema
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+#### 👥 Principal
 
-## Contributing
+-   Gestión de personas (pacientes, fisioterapeutas, administrativos)
+-   Usuarios y autenticación
+-   Roles y permisos
+-   Salas de atención
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### 🏥 Clínico
 
-## Code of Conduct
+-   Tipos de servicios (masajes, terapias, etc.)
+-   Historias clínicas
+-   Registro de sesiones
+-   Vinculación paciente-fisioterapeuta
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+#### 📅 Agenda
 
-## Security Vulnerabilities
+-   Citas con estados (pendiente, confirmada, cancelada, completada)
+-   Horarios de fisioterapeutas
+-   Días no laborables
+-   Control de disponibilidad
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+#### 💰 Facturación
 
-## License
+-   Emisión de comprobantes (Facturas 01, Boletas 03, Tickets 12)
+-   Notas de crédito (07)
+-   Registro de pagos múltiples métodos
+-   Integración con SUNAT (XML, CDR)
+-   Series de comprobantes
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### 📦 Inventario
+
+-   Gestión de items (productos, insumos)
+-   Sistema Kardex con valorización PROMEDIO
+-   Categorías y unidades de medida
+-   Activos fijos con control de estado
+-   Vista resumen de kardex
+
+#### 🛒 Compras
+
+-   Registro de compras a proveedores
+-   Gestión de proveedores
+-   Detalles de compra con costos
+-   Integración con inventario
+
+#### 📊 Contabilidad
+
+-   Libros resumen
+-   Reportes de ventas mensuales
+-   Reporte de sesiones
+-   Integración con facturación
+
+#### 🔒 Seguridad
+
+-   Logs de auditoría automáticos
+-   Exportación de auditoría a CSV
+-   Trazabilidad completa de operaciones
+
+---
+
+## 🚀 Instalación
+
+### Requisitos Previos
+
+-   PHP >= 8.2
+-   Composer
+-   SQLite (desarrollo) / PostgreSQL o MySQL (producción)
+
+### Pasos de Instalación
+
+1. **Clonar el repositorio**
+
+```bash
+git clone <url-repositorio>
+cd fisioterapia_api
+```
+
+2. **Instalar dependencias**
+
+```bash
+composer install
+```
+
+3. **Configurar variables de entorno**
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. **Editar `.env`** según tus necesidades:
+
+```env
+APP_NAME="Fisioterapia API"
+APP_URL=http://localhost:8000
+
+DB_CONNECTION=sqlite
+# O para PostgreSQL/MySQL:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=fisioterapia
+# DB_USERNAME=root
+# DB_PASSWORD=
+```
+
+5. **Ejecutar migraciones y seeders**
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+6. **Iniciar servidor de desarrollo**
+
+```bash
+php artisan serve
+```
+
+La API estará disponible en `http://localhost:8000`
+
+---
+
+## 🔑 Autenticación
+
+Esta API utiliza **Laravel Sanctum** para autenticación basada en tokens.
+
+### Registro de Usuario
+
+```http
+POST /api/v1/auth/register
+Content-Type: application/json
+
+{
+  "name": "Juan Pérez",
+  "email": "juan@example.com",
+  "password": "password123",
+  "password_confirmation": "password123",
+  "nombres": "Juan",
+  "apellidos": "Pérez",
+  "dni": "12345678",
+  "telefono": "999888777"
+}
+```
+
+**Respuesta:**
+
+```json
+{
+    "message": "Usuario registrado exitosamente",
+    "user": {
+        "id": 1,
+        "name": "Juan Pérez",
+        "email": "juan@example.com"
+    },
+    "access_token": "1|abc123...",
+    "token_type": "Bearer"
+}
+```
+
+### Login
+
+```http
+POST /api/v1/auth/login
+Content-Type: application/json
+
+{
+  "email": "juan@example.com",
+  "password": "password123"
+}
+```
+
+**Respuesta:**
+
+```json
+{
+    "message": "Login exitoso",
+    "access_token": "2|xyz789...",
+    "token_type": "Bearer"
+}
+```
+
+### Uso del Token
+
+Para acceder a endpoints protegidos, incluye el token en el header:
+
+```http
+GET /api/v1/principal/personas
+Authorization: Bearer 2|xyz789...
+```
+
+### Cerrar Sesión
+
+```http
+POST /api/v1/auth/logout
+Authorization: Bearer 2|xyz789...
+```
+
+---
+
+##📡 Endpoints Principales
+
+### Autenticación
+
+-   `POST /api/v1/auth/register` - Registro
+-   `POST /api/v1/auth/login` - Login
+-   `POST /api/v1/auth/logout` - Logout _(requiere auth)_
+-   `GET /api/v1/auth/me` - Usuario actual _(requiere auth)_
+
+### Principal _(requiere auth + permisos)_
+
+-   `GET /api/v1/principal/personas` - Listar personas
+-   `POST /api/v1/principal/personas` - Crear persona
+-   `GET /api/v1/principal/personas/{id}` - Ver persona
+-   `PUT /api/v1/principal/personas/{id}` - Actualizar persona
+-   `DELETE /api/v1/principal/personas/{id}` - Eliminar persona
+
+_Similar estructura para: usuarios, roles, salas, permisos_
+
+### Agenda _(requiere auth + permisos)_
+
+-   `GET /api/v1/agenda/citas` - Listar citas
+-   `POST /api/v1/agenda/citas` - Crear cita
+-   `GET /api/v1/agenda/estados` - Estados de citas
+-   `GET /api/v1/agenda/horarios` - Horarios de fisioterapeutas
+
+### Facturación _(requiere auth + permisos)_
+
+-   `POST /api/v1/facturacion/comprobantes` - Emitir comprobante
+-   `POST /api/v1/facturacion/comprobantes/{id}/anular` - Anular
+-   `POST /api/v1/facturacion/pagos` - Registrar pago
+
+### Inventario _(requiere auth + permisos)_
+
+-   `GET /api/v1/inventario/items` - Listar items
+-   `POST /api/v1/inventario/items` - Crear item
+-   `GET /api/v1/inventario/kardex/{itemId}` - Kardex de item
+-   `GET /api/v1/inventario/kardex-resumen` - Resumen general
+
+### SUNAT _(requiere auth + permisos)_
+
+-   `POST /api/v1/sunat/comprobantes/{id}/enviar` - Enviar a SUNAT
+-   `GET /api/v1/sunat/comprobantes/{id}/estado` - Consultar estado
+
+Ver [routes/api.php](file:///c:/Users/LENOVO/Desktop/fisioterapia_api/routes/api.php) para la lista completa.
+
+---
+
+## 🔐 Sistema de Permisos
+
+Los permisos siguen la estructura: `modulo.recurso.accion`
+
+Ejemplos:
+
+-   `principal.personas.ver` - Ver personas
+-   `agenda.citas.crear` - Crear citas
+-   `facturacion.comprobantes.emitir` - Emitir comprobantes
+-   `inventario.items.editar` - Editar items
+
+### Roles Predefinidos
+
+| Rol           | ID  | Permisos                         |
+| ------------- | --- | -------------------------------- |
+| ADMINISTRADOR | 1   | Todos los permisos               |
+| PACIENTE      | 2   | Permisos básicos                 |
+| CONTADOR      | 3   | Facturación, contabilidad, SUNAT |
+| RECEPCIONISTA | 4   | Agenda, emisión de comprobantes  |
+| ALMACENERO    | 6   | Inventario, compras              |
+
+---
+
+## 🏗️ Arquitectura
+
+```
+app/
+├── Http/
+│   ├── Controllers/Api/     # Controladores por módulo
+│   ├── Middleware/          # CheckPermiso, AuditAction
+│   ├── Requests/            # Form Requests (validación)
+│   └── Resources/           # API Resources (transformación)
+├── Models/                  # Modelos Eloquent por módulo
+├── Services/                # Lógica de negocio
+├── Repositories/            # Abstracción de acceso a datos
+└── Observers/               # AuditObserver (auditoría automática)
+
+database/
+├── migrations/             # 53 migraciones + Sanctum
+└── seeders/                # Datos iniciales (roles, permisos, etc.)
+
+routes/
+└── api.php                 # Definición de rutas API
+```
+
+### Patrón de Diseño
+
+-   **Controllers**: Reciben requests, validan, delegan a Services
+-   **Services**: Lógica de negocio, coordinan Repositories
+-   **Repositories**: Acceso a datos (queries optimizadas)
+-   **Models**: Eloquent, relaciones entre entidades
+-   **Observers**: Auditoría automática de cambios
+
+---
+
+## 🔍 Testing
+
+```bash
+# Ejecutar todos los tests
+php artisan test
+
+# Ejecutar tests específicos
+php artisan test --filter=AuthTest
+```
+
+_(Por implementar - actualmente sin tests)_
+
+---
+
+## 📊 Base de Datos
+
+### SQLite (Desarrollo)
+
+Por defecto usa SQLite en `database/database.sqlite`
+
+### PostgreSQL/MySQL (Producción)
+
+Actualiza `.env`:
+
+```env
+D B_CONNECTION=pgsql  # o mysql
+DB_HOST=127.0.0.1
+DB_PORT=5432          # 3306 para MySQL
+DB_DATABASE=fisiote rapia_db
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_password
+```
+
+Luego ejecuta:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+---
+
+## 🛠️ Comandos Útiles
+
+```bash
+# Limpiar caché
+php artisan optimize:clear
+
+# Ver rutas
+php artisan route:list
+
+# Crear modelo con migración, factory, seeder
+php artisan make:model NombreModelo -mfs
+
+# Rollback de última migración
+php artisan migrate:rollback
+
+# Refrescar base de datos
+php artisan migrate:fresh --seed
+```
+
+---
+
+## 📝 Licencia
+
+Este proyecto es de código cerrado. Todos los derechos reservados.
+
+---
+
+## 👥 Equipo
+
+Desarrollado para [Nombre del Centro de Fisioterapia]
+
+---
+
+## 📞 Soporte
+
+Para soporte técnico, contactar a: [tu-email@example.com]

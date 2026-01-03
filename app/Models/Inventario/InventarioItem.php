@@ -11,6 +11,7 @@ class InventarioItem extends Model
     protected $primaryKey = 'item_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;  // Table only has creado_en
 
     /**
      * Campos asignables
@@ -18,6 +19,7 @@ class InventarioItem extends Model
      * stock_actual y costo_promedio se actualizan SOLO vía Kardex
      */
     protected $fillable = [
+        'item_id',
         'categoria_id',
         'unidad_medida_id',
         'nombre',

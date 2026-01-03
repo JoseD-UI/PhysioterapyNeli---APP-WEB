@@ -7,6 +7,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Principal\PrincipalController;
 use App\Http\Controllers\Api\Clinico\ClinicoController;
 use App\Http\Controllers\Api\Agenda\AgendaController;
@@ -18,15 +19,31 @@ use App\Http\Controllers\Api\Facturacion\Sunat\SunatController;
 use App\Http\Controllers\Api\Contabilidad\LibroResumenController;
 use App\Http\Controllers\Api\Reportes\ReportesController;
 use App\Http\Controllers\Api\Principal\RolPermisoController;
+use App\Http\Controllers\Api\Seguridad\AuditController;
 
 
 
 /*
 |--------------------------------------------------------------------------
-| API VERSION 1
+| RUTAS PÚBLICAS - Autenticación
 |--------------------------------------------------------------------------
 */
-Route::prefix('v1')->group(function () {
+Route::prefix('v1/auth')->group(function () {
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'login']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| RUTAS PROTEGIDAS - Requieren autenticación
+|--------------------------------------------------------------------------
+*/
+Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
+
+    // Auth (usuario autenticado)
+    Route::post('auth/logout', [AuthController::class, 'logout']);
+    Route::get('auth/me', [AuthController::class, 'me']);
+
 
     /*
     |--------------------------------------------------------------------------
@@ -121,6 +138,38 @@ Route::prefix('v1')->group(function () {
 
         Route::delete('tipos-servicio/{id}', [ClinicoController::class, 'tiposDelete'])
             ->middleware('permiso:clinico.servicios.eliminar');
+
+        // Historias Clínicas
+        Route::get('historias', [ClinicoController::class, 'historiasIndex'])
+            ->middleware('permiso:clinico.historias.ver');
+
+        Route::post('historias', [ClinicoController::class, 'historiasStore'])
+            ->middleware('permiso:clinico.historias.crear');
+
+        Route::get('historias/{id}', [ClinicoController::class, 'historiasShow'])
+            ->middleware('permiso:clinico.historias.ver');
+
+        Route::put('historias/{id}', [ClinicoController::class, 'historiasUpdate'])
+            ->middleware('permiso:clinico.historias.editar');
+
+        Route::delete('historias/{id}', [ClinicoController::class, 'historiasDelete'])
+            ->middleware('permiso:clinico.historias.eliminar');
+
+        // Sesiones
+        Route::get('sesiones', [ClinicoController::class, 'sesionesIndex'])
+            ->middleware('permiso:clinico.sesiones.ver');
+
+        Route::post('sesiones', [ClinicoController::class, 'sesionesStore'])
+            ->middleware('permiso:clinico.sesiones.crear');
+
+        Route::get('sesiones/{id}', [ClinicoController::class, 'sesionesShow'])
+            ->middleware('permiso:clinico.sesiones.ver');
+
+        Route::put('sesiones/{id}', [ClinicoController::class, 'sesionesUpdate'])
+            ->middleware('permiso:clinico.sesiones.editar');
+
+        Route::delete('sesiones/{id}', [ClinicoController::class, 'sesionesDelete'])
+            ->middleware('permiso:clinico.sesiones.eliminar');
     });
 
     /*
@@ -280,9 +329,7 @@ Route::prefix('v1')->group(function () {
             ->middleware('permiso:reportes.ventas.ver');
     });
 
-});
-
-/*
+    /*
     |--------------------------------------------------------------------------
     | ROLES Y PERMISOS
     |--------------------------------------------------------------------------
@@ -296,6 +343,19 @@ Route::prefix('v1/principal/roles')
         
             });
 
-
-
     
+
+    Route::prefix('v1/seguridad')
+        ->middleware(['auth:sanctum'])
+        ->group(function () {
+
+            // Listado de auditoría
+            Route::get('auditoria', [AuditController::class, 'index'])
+                ->middleware('permiso:seguridad.auditoria.ver');
+
+            // Exportar CSV
+            Route::get('auditoria/exportar', [AuditController::class, 'exportarCsv'])
+                ->middleware('permiso:seguridad.auditoria.exportar');
+        });
+
+});

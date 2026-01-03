@@ -124,11 +124,18 @@ class InventarioService
             $costoPromedioAnterior = (float) ($ultimo->costo_promedio_resultante ?? 0);
 
             /* 3. Tipo movimiento */
-            $esEntrada = in_array($data['tipo_movimiento'], ['INGRESO', 'AJUSTE']);
+            // Normalizar input para lógica de negocio
+            $tipoInput = strtoupper($data['tipo_movimiento']);
+            $esEntrada = in_array($tipoInput, ['ENTRADA', 'INGRESO', 'AJUSTE_ENTRADA']);
+            
+            // Determinar valor para BD (enum estricto: entrada|salida)
+            $tipoDb = $esEntrada ? 'entrada' : 'salida';
+            
             $cantidad  = abs((float) $data['cantidad']);
-
+            
+            // Validación de stock para salidas
             if (!$esEntrada && $cantidad > $saldoAnteriorCantidad) {
-                throw new Exception('Stock insuficiente para realizar la salida');
+                throw new Exception('Stock insuficiente para realizar la salida. Saldo: ' . $saldoAnteriorCantidad);
             }
 
             /* 4. Cálculos */
@@ -154,7 +161,7 @@ class InventarioService
             $kardex = InventarioKardex::create([
                 'kardex_id'                 => (string) Str::uuid(),
                 'item_id'                   => $item->item_id,
-                'tipo_movimiento'           => $data['tipo_movimiento'],
+                'tipo_movimiento'           => $tipoDb, // Usar valor mapeado para BD
                 'origen'                    => $data['origen'] ?? null,
 
                 'cantidad'                  => $cantidad,

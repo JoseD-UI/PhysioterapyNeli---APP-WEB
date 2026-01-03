@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('tabla_nombre',100);
             $table->enum('operacion',['INSERT','UPDATE','DELETE','FUNC_ERROR']);
             $table->char('registro_id',36)->nullable();
-            $table->char('usuario_id',36)->nullable();
+            $table->unsignedBigInteger('usuario_id')->nullable();
             $table->timestamp('fecha')->useCurrent();
             $table->json('datos_previos')->nullable();
             $table->json('datos_nuevos')->nullable();

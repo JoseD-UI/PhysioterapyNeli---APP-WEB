@@ -11,9 +11,10 @@ class Unidad extends Model
     protected $primaryKey = 'unidad_id';
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = false;
 
-    const CREATED_AT = 'creado_en';
-    public $timestamps = true;
+
+
 
     protected $fillable = ['unidad_id','codigo','nombre'];
 
