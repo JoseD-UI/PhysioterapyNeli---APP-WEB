@@ -11,6 +11,7 @@ Bienvenido a la documentación completa del sistema de gestión para centros de 
 -   **[Diagram de Base de Datos](architecture/database-diagram.md)**: ERD y relaciones
 -   **[Seguridad](architecture/security.md)**: Autenticación y autorización
 -   **[Frontend (Nueva)](architecture/frontend.md)**: Arquitectura SPA Roles-First con React
+-   **[🛡️ Auditoría & Roadmap (Ene 2026)](AUDIT_2026_01_03.md)**: Estado actual del proyecto y pasos a seguir.
 
 ### 📦 [Módulos](modules/)
 
