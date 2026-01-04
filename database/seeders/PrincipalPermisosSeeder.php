@@ -51,6 +51,7 @@ class PrincipalPermisosSeeder extends Seeder
             Permiso::firstOrCreate(
                 ['codigo' => $p['codigo']],
                 [
+                    'permiso_id' => (string) \Illuminate\Support\Str::uuid(),
                     'nombre' => $p['nombre'],
                     'descripcion' => $p['nombre']
                 ]

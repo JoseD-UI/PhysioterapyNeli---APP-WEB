@@ -38,6 +38,7 @@ erDiagram
     facturacion_comprobantes ||--o{ facturacion_pagos : "pagos"
     inventario_items ||--o{ facturacion_detalles : "producto"
     facturacion_series ||--o{ facturacion_comprobantes : "serie"
+    facturacion_comprobantes ||--o{ facturacion_documentos_sunat : "sunat_docs"
 
     %% INVENTARIO
     inventario_categorias ||--o{ inventario_items : "categoria"
@@ -79,9 +80,9 @@ erDiagram
     }
 
     principal_usuarios {
-        uuid usuario_id PK
-        uuid persona_id FK
+        bigint id PK
         bigint user_id FK
+        uuid persona_id FK
         int rol_id FK
         string username UK
         boolean activo
@@ -197,7 +198,7 @@ erDiagram
 
     seguridad_audit_log {
         uuid log_id PK
-        uuid usuario_id FK
+        bigint usuario_id FK
         string tabla_nombre
         string operacion
         text datos_anteriores
@@ -260,17 +261,37 @@ erDiagram
 
 -   `seguridad_audit_log` - Auditoría de operaciones
 
-## Índices Principales
+    facturacion_documentos_sunat {
+    uuid id PK
+    uuid comprobante_id FK
+    text xml_content
+    text cdr_content
+    string hash_cpe
+    string ticket_sunat
+    string codigo_respuesta
+    }
 
-Todos los módulos tienen índices en:
+```
 
--   Primary keys (UUID)
--   Foreign keys
--   Campos de búsqueda frecuente (email, DNI, código)
--   Campos de filtrado (fecha, estado, tipo)
--   Índices compuestos para queries complejas
+## Optimizaciones de Rendimiento
 
-Ver [add_indexes_to_tables.php](../../database/migrations/2026_01_02_003327_add_indexes_to_tables.php)
+Se han implementado índices estratégicos (Enero 2026) para mejorar el rendimiento de consultas masivas y reportes:
+
+1.  **Índices de Búsqueda de Texto**:
+    -   `principal_personas(documento_numero)`
+    -   `principal_personas(nombres, apellidos)`
+    -   `inventario_items(codigo)`
+    -   `facturacion_comprobantes(serie, correlativo)`
+
+2.  **Índices Compuestos (Performance)**:
+    -   `agenda_citas(fecha_inicio, estado)`: Acelera la carga del calendario.
+    -   `inventario_kardex(item_id, fecha)`: Optimiza el cálculo de saldos y costos.
+    -   `facturacion_comprobantes(fecha_emision, tipo_comprobante)`: Vital para reportes contables mensuales.
+
+3.  **Vistas SQL (Views)**:
+    -   `vw_inventario_kardex_resumen`: Vista optimizada para consultar stock actual y costo promedio sin recalcular todo el historial de movimientos.
+
+Ver migración clave: [2026_01_02_003327_add_indexes_to_tables.php](../../database/migrations/2026_01_02_003327_add_indexes_to_tables.php)
 
 ---
 
@@ -278,3 +299,4 @@ Ver [add_indexes_to_tables.php](../../database/migrations/2026_01_02_003327_add_
 
 -   [Arquitectura](overview.md)
 -   [Migraciones](../../database/migrations/)
+```

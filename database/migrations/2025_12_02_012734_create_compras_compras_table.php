@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id')->nullable();
 
             $table->foreign('proveedor_id')->references('proveedor_id')->on('compras_proveedores')->nullOnDelete();
-            $table->foreign('usuario_id')->references('usuario_id')->on('principal_usuarios')->nullOnDelete();
+            $table->foreign('usuario_id')->references('id')->on('principal_usuarios')->nullOnDelete();
         });
     }
 

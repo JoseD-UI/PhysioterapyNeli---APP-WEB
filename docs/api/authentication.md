@@ -17,15 +17,37 @@ Content-Type: application/json
 
 ```json
 {
+    "tipo_persona": "PACIENTE-NATURAL",
     "name": "Juan Pérez",
     "email": "juan@example.com",
-    "password": "password123",
-    "password_confirmation": "password123",
+    "password": "Password123!",
+    "password_confirmation": "Password123!",
 
+    "documento_tipo": "DNI",
+    "documento_numero": "12345678",
     "nombres": "Juan",
     "apellidos": "Pérez",
-    "dni": "12345678",
-    "telefono": "999888777"
+    "fecha_nacimiento": "1990-05-15",
+    "telefono": "999888777",
+    "direccion": "Av. Principal 123"
+}
+```
+
+**Request (Jurídica Example)**:
+
+```json
+{
+    "tipo_persona": "PACIENTE-JURIDICA",
+    "name": "Empresa SAC",
+    "email": "contacto@empresa.com",
+    "password": "Password123!",
+    "password_confirmation": "Password123!",
+
+    "documento_tipo": "RUC",
+    "documento_numero": "20123456781",
+    "nombres": "Empresa SAC",
+    "telefono": "01234567",
+    "direccion": "Jr. Comercio 555"
 }
 ```
 
@@ -59,6 +81,27 @@ Content-Type: application/json
     "password": "password123"
 }
 ```
+
+### Login con Google (Social)
+
+Intercambia un access token de Google por un token de sesión del sistema.
+
+```http
+POST /api/v1/auth/google
+Content-Type: application/json
+```
+
+**Request**:
+
+```json
+{
+    "access_token": "ya29.a0AfH6SM..." // Token obtenido en el frontend desde Google
+}
+```
+
+**Response** (200):
+
+Tiene la misma estructura que el Login tradicional.
 
 **Response** (200):
 
@@ -95,6 +138,38 @@ Content-Type: application/json
 ```
 
 ## Rutas Protegidas
+
+### Completar Perfil (Google / Incompleto)
+
+**Nota**: Requerido si `user.profile_complete` es false.
+
+```http
+POST /api/v1/auth/complete-profile
+Authorization: Bearer {token}
+Content-Type: application/json
+```
+
+**Request**:
+
+```json
+{
+    "tipo_persona": "PACIENTE-NATURAL",
+    "documento_tipo": "DNI",
+    "documento_numero": "12345678",
+    "fecha_nacimiento": "1990-01-01",
+    "telefono": "999888777",
+    "direccion": "Av. Test 123"
+}
+```
+
+**Response** (200):
+
+```json
+{
+    "message": "Perfil completado exitosamente",
+    "user": { ... } // Objeto usuario actualizado
+}
+```
 
 ### Logout
 
@@ -178,8 +253,8 @@ curl -H "Authorization: Bearer 2|xyz789abc..." \
 -   ✅ Password hasheado con bcrypt
 -   ✅ Validate email único
 -   ✅ Rate limiting (configurar en prod)
--   ⚠️ Implementar verificación de email (opcional)
--   ⚠️ Implementar reset de password (opcional)
+-   ✅ Implementar verificación de email (opcional)
+-   ✅ Implementar reset de password (Completo con Email Log y UI segura)
 
 ## Ejemplo Completo (Bash)
 

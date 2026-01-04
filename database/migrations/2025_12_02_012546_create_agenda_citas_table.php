@@ -25,7 +25,7 @@ $table->dateTime('fecha_fin')->nullable(false);
             $table->foreign('paciente_id')->references('persona_id')->on('principal_personas')->cascadeOnDelete();
             $table->foreign('fisioterapeuta_id')->references('persona_id')->on('principal_personas')->nullOnDelete();
             $table->foreign('servicio_id')->references('servicio_id')->on('clinico_servicios')->nullOnDelete();
-            $table->foreign('creado_por')->references('usuario_id')->on('principal_usuarios')->nullOnDelete();
+            $table->foreign('creado_por')->references('id')->on('principal_usuarios')->nullOnDelete();
             $table->index(['paciente_id','fecha_inicio']);
             $table->index(['fisioterapeuta_id','fecha_inicio']);
         });

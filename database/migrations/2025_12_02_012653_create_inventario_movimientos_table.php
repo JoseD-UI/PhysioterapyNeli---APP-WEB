@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('usuario_id')->nullable();
 
             $table->foreign('item_id')->references('item_id')->on('inventario_items')->cascadeOnDelete();
-            $table->foreign('usuario_id')->references('usuario_id')->on('principal_usuarios')->nullOnDelete();
+            $table->foreign('usuario_id')->references('id')->on('principal_usuarios')->nullOnDelete();
             $table->index(['item_id','fecha_movimiento']);
         });
     }

@@ -73,7 +73,7 @@ class InventarioMovimiento extends Model
         return $this->belongsTo(
             \App\Models\Principal\Usuario::class,
             'usuario_id',
-            'usuario_id'
+            'id'
         );
     }
 }

@@ -10,7 +10,7 @@ class PrincipalRolesSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('principal_roles')->truncate();
+
 
         $roles = [
             ['rol_id' => 1,  'nombre' => 'ADMINISTRADOR',        'descripcion' => 'Control total del sistema'],

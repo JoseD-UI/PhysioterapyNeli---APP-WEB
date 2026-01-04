@@ -10,6 +10,7 @@ Bienvenido a la documentación completa del sistema de gestión para centros de 
 -   **[Patrones de Diseño](architecture/patterns.md)**: Repository, Service, Observer
 -   **[Diagram de Base de Datos](architecture/database-diagram.md)**: ERD y relaciones
 -   **[Seguridad](architecture/security.md)**: Autenticación y autorización
+-   **[Frontend (Nueva)](architecture/frontend.md)**: Arquitectura SPA Roles-First con React
 
 ### 📦 [Módulos](modules/)
 
@@ -24,7 +25,10 @@ Bienvenido a la documentación completa del sistema de gestión para centros de 
 
 ### 🔧 [Desarrollo](development/)
 
+### 🔧 [Desarrollo](development/)
+
 -   **[Configuración Inicial](development/setup.md)**: Instalación paso a paso
+-   **[Plan de Trabajo Frontend (Roadmap)](development/frontend-roadmap.md)**: Estrategia de implementación y QA
 -   **[Contribución](development/contributing.md)**: Guía para contribuidores
 -   **[Estándares de Código](development/coding-standards.md)**: Best practices
 -   **[Testing](development/testing.md)**: Guía de tests

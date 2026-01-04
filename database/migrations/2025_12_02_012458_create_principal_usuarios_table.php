@@ -12,11 +12,16 @@ return new class extends Migration
     public function up()
     {
         Schema::create('principal_usuarios', function (Blueprint $table) {
-            // Primary key que coincide con users.id
-            $table->unsignedBigInteger('usuario_id')->primary();
+            // New Primary Key Auto Increment
+            $table->id();
+
+            // Foreign Key to users authentication table
+            $table->unsignedBigInteger('user_id')->unique(); // 1:1 Relationship
+
             $table->char('persona_id',36)->nullable();
             $table->string('username',80)->unique();
-            $table->string('password_hash'); // usaremos hash bcrypt
+            // password_hash removed, auth is in users table
+            
             $table->unsignedSmallInteger('rol_id')->nullable();
             $table->boolean('activo')->default(true);
             $table->smallInteger('intento_fallido')->default(0);
@@ -25,7 +30,7 @@ return new class extends Migration
             $table->timestamp('actualizado_en')->useCurrent()->useCurrentOnUpdate();
 
             // Foreign keys
-            $table->foreign('usuario_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreign('persona_id')->references('persona_id')->on('principal_personas')->nullOnDelete();
             $table->foreign('rol_id')->references('rol_id')->on('principal_roles')->restrictOnDelete();
         });

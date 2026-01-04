@@ -25,6 +25,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
+        'avatar',
     ];
 
     /**
@@ -54,8 +56,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(
             UsuarioPrincipal::class,
-            'usuario_id',  // Foreign key en principal_usuarios
-            'id'           // Local key en users (mismo valor que usuario_id)
+            'user_id',     // Foreign key en principal_usuarios
+            'id'           // Local key en users
         );
     }
 

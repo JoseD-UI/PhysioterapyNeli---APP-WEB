@@ -10,7 +10,7 @@ class PrincipalRolPermisoSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('principal_rol_permiso')->truncate();
+
 
         // ADMINISTRADOR → TODO
         $adminPermisos = Permiso::pluck('permiso_id');

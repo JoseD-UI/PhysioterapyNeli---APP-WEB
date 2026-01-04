@@ -65,7 +65,7 @@ class Cita extends Model
 
     public function creadoPor()
     {
-        return $this->belongsTo(\App\Models\Principal\Usuario::class, 'creado_por', 'usuario_id');
+        return $this->belongsTo(\App\Models\Principal\Usuario::class, 'creado_por', 'id');
     }
 
     public function estado()

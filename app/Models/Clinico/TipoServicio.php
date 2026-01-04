@@ -20,6 +20,8 @@ class TipoServicio extends Model
         'tipo_id',
         'nombre',
         'descripcion',
+        'precio',
+        'imagen_url',
         'activo'
     ];
 

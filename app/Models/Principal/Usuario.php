@@ -10,9 +10,9 @@ use App\Services\Seguridad\PermisoService;
 class Usuario extends Model
 {
     protected $table = 'principal_usuarios';
-    protected $primaryKey = 'usuario_id';
-    public $incrementing = true;  // Ahora es autoincrement de users.id
-    protected $keyType = 'int';   // Cambió de string UUID a int
+    protected $primaryKey = 'id';
+    // Defaults are fine for auto-increment int
+
 
     /* ===================== TIMESTAMPS ===================== */
     const CREATED_AT = 'creado_en';
@@ -21,10 +21,10 @@ class Usuario extends Model
 
     /* ===================== MASS ASSIGNMENT ===================== */
     protected $fillable = [
-        'usuario_id',    // Linked to users.id (mismo valor)
+        'user_id',    // FK to users.id
         'persona_id',
         'username',
-        'password_hash',
+
         'rol_id',
         'activo',
         'intento_fallido',
@@ -33,7 +33,7 @@ class Usuario extends Model
 
     /* ===================== OCULTOS ===================== */
     protected $hidden = [
-        'password_hash',
+        // 'password_hash' removed
     ];
 
     /* ===================== CASTS ===================== */
@@ -48,14 +48,15 @@ class Usuario extends Model
     /* ===================== BOOT ===================== */
     protected static function booted()
     {
-        // Ya NO generamos UUID aquí porque usuario_id viene de users.id
+        // No UUID needed
+
     }
 
     /* ===================== RELACIONES ===================== */
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User::class, 'usuario_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
     }
 
     public function persona(): BelongsTo

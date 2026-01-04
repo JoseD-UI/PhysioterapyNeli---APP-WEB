@@ -9,9 +9,9 @@ class UsuarioResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'usuario_id' => $this->usuario_id,
-            'usuario' => $this->usuario,
-            'estado' => $this->estado,
+            'id' => $this->id,
+            'username' => $this->username,
+            'activo' => $this->activo,
 
             'persona' => new PersonaResource($this->persona),
             'rol' => new RolResource($this->rol),

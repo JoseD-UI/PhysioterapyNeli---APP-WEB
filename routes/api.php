@@ -31,6 +31,17 @@ use App\Http\Controllers\Api\Seguridad\AuditController;
 Route::prefix('v1/auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
+    
+    // Social Login
+    Route::post('google', [App\Http\Controllers\Api\SocialAuthController::class, 'googleLogin']);
+
+    // Password Recovery
+    Route::post('forgot-password', [\App\Http\Controllers\Api\Auth\ForgotPasswordController::class, 'sendResetLinkEmail']);
+    Route::post('reset-password', [\App\Http\Controllers\Api\Auth\ResetPasswordController::class, 'reset']);
+});
+
+Route::prefix('v1/public')->group(function () {
+    Route::get('services', [App\Http\Controllers\Api\PublicController::class, 'services']);
 });
 
 /*
@@ -43,6 +54,7 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function () {
     // Auth (usuario autenticado)
     Route::post('auth/logout', [AuthController::class, 'logout']);
     Route::get('auth/me', [AuthController::class, 'me']);
+    Route::post('auth/complete-profile', [AuthController::class, 'completeProfile']);
 
 
     /*

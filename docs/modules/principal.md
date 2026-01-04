@@ -14,9 +14,8 @@ Entidad base que representa cualquier individuo en el sistema.
 
 **Campos principales**:
 
--   `tipo_persona`: PACIENTE, FISIOTERAPEUTA, PROVEEDOR, EMPLEADO
--   `documento_tipo`: DNI, CE, PASAPORTE
--   `documento_numero`: Número de documento único
+-   `tipo_persona`: PACIENTE-NATURAL, PACIENTE-JURIDICA, ADMINISTRATIVO, FISIOTERAPEUTA, PROVEEDOR, EMPLEADO
+-   `documento_tipo`: DNI, CARNET_EXT, RUC
 -   `nombres`, `apellidos`
 -   `fecha_nacimiento`, `genero`
 -   `email`, `telefono`, `celular`
@@ -31,11 +30,12 @@ Entidad base que representa cualquier individuo en el sistema.
 
 Usuario del sistema vinculado a una Persona.
 
-**Primary Key**: `usuario_id` (unsignedBigInteger) - **Sincronizado con users.id**
+**Primary Key**: `id` (BigInteger AutoIncrement)
 
 **Campos**:
 
--   `usuario_id` (PK, FK a users.id) - Mismo valor que el ID del User de Laravel
+-   `id` (PK)
+-   `user_id` (FK a users.id) - Relación 1:1 con la tabla de autenticación
 -   `persona_id` (FK)
 -   `rol_id` (FK)
 -   `username`
@@ -123,11 +123,15 @@ DELETE /api/v1/principal/salas/{id}
 
 ## Validaciones de Negocio
 
-✅ DNI debe ser único por tipo de persona  
-✅ Email debe ser único si se proporciona  
-✅ Usuario requiere- **users** (Laravel Default): Autenticación (Email/Password). PK: `id` (bigint).
+    ✅ DNI debe ser único por tipo de persona (Users duplicados bloqueados)
+    ✅ Validación Estricta:
+      - **Natural**: DNI/CE, Nombres, Apellidos, Fecha Nacimiento.
+      - **Jurídica**: RUC (11 dígitos), Razón Social (en Nombres), Apellidos="P.J.".
+    ✅ Usuario requiere crear registro en `users` (Auth) y `principal_usuarios` (Perfil)
+    ✅ `profile_complete`: Flag esencial para permitir acceso a rutas protegidas.
 
--   **principal_usuarios**: Perfil extendido. - PK: `usuario_id` (FK a users.id). **Relación 1:1 Estricta**. - FK: `persona_id` (FK a principal_personas.persona_id). - Roles y estado activo.
+-   **users** (Laravel Default): Autenticación (Email/Password). PK: `id`.
+-   **principal_usuarios**: Perfil extendido. - PK: `id`. - FK: `user_id` (1:1 con users). - FK: `persona_id`. - Roles y estado activo.
     ✅ Rol debe existir al crear usuario
 
 ## Repositorio y Servicio

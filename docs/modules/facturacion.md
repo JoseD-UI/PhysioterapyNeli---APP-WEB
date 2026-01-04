@@ -92,6 +92,13 @@ Pagos asociados a comprobantes con múltiples medios de pago.
 
 Control de series y correlativos por tipo de comprobante.
 
+### FacturacionDocumentoSunat (Nuevo)
+
+Almacena la respuesta oficial de SUNAT (CDR, XML, Hash) para cada comprobante enviado.
+
+-   **Fields**: xml_content, cdr_content, hash_cpe, ticket_sunat, codigo_respuesta, mensaje_respuesta
+-   **Relación**: belongsTo `comprobante`
+
 ## Flujo de Emisión de Comprobante
 
 ```

@@ -43,5 +43,11 @@ class AppServiceProvider extends ServiceProvider
         // Ejemplo:
         // Compra::observe(AuditObserver::class);
         // AgendaCita::observe(AuditObserver::class);
+
+        // Personalizar URL de restablecimiento para SPA (Frontend)
+        \Illuminate\Auth\Notifications\ResetPassword::createUrlUsing(function ($user, string $token) {
+            // Ajusta el puerto/url segun tu frontend (ej. localhost:5173 o localhost:8000 si usas Blade)
+            return 'http://localhost:8000/password-reset?token=' . $token . '&email=' . $user->email;
+        });
     }
 }

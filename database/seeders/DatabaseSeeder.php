@@ -15,11 +15,40 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Run strict seeders (Roles, Permisos, Types, etc.)
+        $this->call([
+            PrincipalRolesSeeder::class,
+            PrincipalPermisosSeeder::class,
+            PrincipalRolPermisoSeeder::class,
+            TiposServicioSeeder::class,
+            CitaEstadosSeeder::class,
+            CategoriasInventarioSeeder::class,
+            UnidadesInventarioSeeder::class,
+        ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // 2. Create Test User (Admin)
+        $user = User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+        ]);
+
+        // 3. Create Persona linked to User
+        $persona = \App\Models\Principal\Persona::create([
+            'persona_id' => \Illuminate\Support\Str::uuid(),
+            'tipo_persona' => 'ADMINISTRATIVO', // From PrincipalRolesSeeder implication
+            'nombres' => 'Admin',
+            'apellidos' => 'User',
+            'email' => 'admin@example.com',
+            'dni' => '00000000',
+        ]);
+
+        // 4. Create Usuario linked to User and Persona
+        \App\Models\Principal\Usuario::create([
+            'user_id' => $user->id,
+            'persona_id' => $persona->persona_id,
+            'username' => 'admin',
+            'rol_id' => 1, // ADMINISTRADOR
+            'activo' => true,
         ]);
     }
 }
