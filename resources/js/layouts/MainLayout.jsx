@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { ThemeToggle } from '../components/ui/ThemeToggle';
+import { Calendar, FileText } from 'lucide-react';
 
 export default function MainLayout() {
     return (
@@ -12,18 +13,39 @@ export default function MainLayout() {
                             <Link to="/admin" className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                                 PhysioApp Admin
                             </Link>
-                            <div className="hidden sm:ml-8 sm:flex sm:space-x-4">
+                            <div className="hidden sm:ml-8 sm:flex sm:space-x-1">
                                 <Link 
                                     to="/admin" 
                                     className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
                                 >
                                     Dashboard
                                 </Link>
+                                
+                                {/* Agenda */}
                                 <Link 
                                     to="/admin/agenda" 
-                                    className="text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+                                    className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
                                 >
-                                    Agenda
+                                    <Calendar size={16} />
+                                    Agenda / Citas
+                                </Link>
+
+                                {/* Clinico - Usuario */}
+                                <Link 
+                                    to="/admin/clinico-usuario" 
+                                    className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+                                >
+                                    <FileText size={16} />
+                                    Mi Historia Clínica
+                                </Link>
+
+                                {/* Clinico - Admin */}
+                                <Link 
+                                    to="/admin/clinico-admin" 
+                                    className="flex items-center gap-2 text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium"
+                                >
+                                    <FileText size={16} />
+                                    Gestión Clínica
                                 </Link>
                             </div>
                         </div>
